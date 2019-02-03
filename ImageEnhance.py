@@ -1,6 +1,8 @@
 #4features branch
 from PIL import ImageEnhance
 from PIL import Image
+import cv2
+import numpy as np
 
 image=Image.open('card.jpg')
 image.show()
@@ -28,6 +30,21 @@ bright=enhancer.enhance(factor)
 enhancer=ImageEnhance.Contrast(bright)
 factor=1.1223
 contra=enhancer.enhance(factor)
-Image._show(contra)
+#Image._show(contra)
+contra.save('save.jpg')
 
+#gamma correction
+def adjust_gamma(image, gamma=1.0):
+   invGamma = 1.0 / gamma
+   table = np.array([((i / 255.0) ** invGamma) * 255
+      for i in np.arange(0, 256)]).astype("uint8")
 
+   return cv2.LUT(image, table)
+original = cv2.imread('save.jpg',1)
+gamma = 1.1                            # change the value here to get different result
+adjusted = adjust_gamma(original, gamma=gamma)
+cv2.imwrite('save.jpg',adjusted)
+#cv2.imshow("gammam image 1", adjusted)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+Image.open('save.jpg').show()
