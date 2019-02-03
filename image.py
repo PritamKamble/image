@@ -2,7 +2,7 @@
 from PIL import Image
 
 def reduce():
-        img = Image.open('olay.jpg').convert('L')  # convert image to 8-bit grayscale
+        img = Image.open('simple.jpg').convert('L')  # convert image to 8-bit grayscale
         basewidth , height = img.size
         basewidth=50
         wpercent = (basewidth/float(img.size[0]))
